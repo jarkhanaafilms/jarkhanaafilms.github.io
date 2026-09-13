@@ -825,6 +825,7 @@ code { font-family: var(--frame-mono); }
 }
 .still-rail img:hover { transform: scale(1.03); filter: grayscale(0); }
 .still-rail.wide img { width: min(70vw, 380px); aspect-ratio: 2.35 / 1; }
+.still-rail a { display: contents; }
 
 /* crew list — production stills credit block */
 .crew-list {
