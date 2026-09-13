@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jarkhanaa Films — Mohammad Jarrar Ali Mehdi</title>
+<meta name="description" content="Mohammad Jarrar Ali Mehdi — editor and storyteller, breaking into the film industry. Jarkhanaa Films.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!--
+  OPENING CREDITS — plays once per browser session on Home only.
+  Edit the three lines below to change what it says. See js/main.js
+  for the timing/skip logic.
+-->
+<div class="credits-overlay" id="credits-overlay">
+  <div class="credits-card">
+    <p class="credits-line">Jarkhanaa Films Presents</p>
+    <h1 class="credits-title">Mohammad Jarrar<br>Ali Mehdi</h1>
+    <p class="credits-sub">Editor &amp; Storyteller — Breaking Into The Film Industry</p>
+  </div>
+  <button class="credits-skip" id="credits-skip" aria-label="Skip intro">Skip &rarr;</button>
+</div>
+
+<div class="sprockets"></div>
+<nav class="filmstrip-nav">
+  <div class="nav-frames">
+    <div class="nav-logo">JARKHANAA <span>FILMS</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="films.html">Films</a></li>
+      <li><a href="experience.html">Experience</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="sprockets"></div>
+
+<main>
+  <div class="container" style="padding-top:50px;padding-bottom:10px;">
+    <p class="timecode">Now Playing</p>
+  </div>
+  <div class="container" style="padding-bottom:20px; display:flex; justify-content:center;">
+    <div style="width:100%; max-width:480px;">
+      <div class="reel-frame">
+        <div class="reel-media landscape">
+          <iframe src="https://www.youtube.com/embed/O19pS1PBacE"
+                  title="Jarrar — Intro As An Editor"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+        </div>
+      </div>
+      <p class="portrait-caption">Intro — As An Editor</p>
+    </div>
+  </div>
+
+  <div class="container">
+  <section class="hero" style="padding-top:40px;">
+    <div>
+      <p class="timecode">Reel 01 — Home</p>
+      <h1 class="hero-title">Mohammad Jarrar Ali Mehdi</h1>
+      <p class="hero-role">Editor &amp; Storyteller — Breaking Into The Film Industry</p>
+
+      <!--
+        BIO — drafted from your CV + our chat. Rewrite this in your own
+        voice, it's the most important copy on the whole site.
+      -->
+      <p class="hero-bio">
+        5+ years of end-to-end content production — social, branded, and
+        narrative work. I've driven 10M+ TikTok views for a client and
+        1M+ combined views across the YouTube channels I've built and run
+        myself. Editing is what I'm best at, and storytelling is the part
+        I care about most.
+      </p>
+      <p class="hero-bio">
+        I'm currently completing an MA in Film (Directing Fiction) at
+        Queen Mary University of London. I've worked as a 1st AC once and
+        an AD once, and now I'm chasing the next one — looking to break
+        into the industry as a 2nd/3rd AD, 3rd AC, runner, or PA. Whatever
+        gets me on set and keeps me there.
+      </p>
+
+      <div class="cta-row">
+        <a href="experience.html" class="btn btn-primary">See my experience</a>
+        <a href="contact.html" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+
+    <div class="portrait-box">
+      <img src="assets/images/headshot_enhanced.jpg" alt="Mohammad Jarrar Ali Mehdi">
+      <p class="portrait-caption">Mohammad Jarrar Ali Mehdi</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="timecode">Where to look next</p>
+    <ul class="credits-list">
+      <li>
+        <a href="work.html">
+          <span class="role">Edited By</span>
+          <span class="name">The Work</span>
+        </a>
+      </li>
+      <li>
+        <a href="films.html">
+          <span class="role">Written &amp; Directed By</span>
+          <span class="name">The Films</span>
+        </a>
+      </li>
+      <li>
+        <a href="experience.html">
+          <span class="role">Crew</span>
+          <span class="name">The Experience</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <figure class="gallery-shot">
+    <img src="assets/images/photography/photo-03.jpg" alt="Red double-decker bus, Regent Street, London">
+    <p class="cap">London — Regent Street</p>
+  </figure>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>&copy; <span id="year"></span> Jarkhanaa Films</span>
+    <span>jarkhanaafilms.com</span>
+  </div>
+</footer>
+<div class="sprockets"></div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
