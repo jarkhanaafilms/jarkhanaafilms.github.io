@@ -55,67 +55,101 @@
       call sheet — that's how you learn the rest.
     </p>
 
-    <figure class="gallery-shot" style="margin:0 0 40px;border-top:none;padding-top:0;">
-      <img src="assets/images/bts/bts-05.jpg" alt="Cast and crew on set, The Last Entry">
-      <p class="cap">On set — The Last Entry</p>
-    </figure>
+    <!--
+      DETECTIVE BOARD — a corkboard standing in for the callsheet. Each
+      role is a pinned index card (or the BTS photo); the left column is
+      what I've actually done, the right is what I'm chasing next. The
+      cursor becomes a flashlight over it — see .board rules in style.css
+      and the "detective-board" block in js/main.js.
+    -->
+    <div class="board-frame">
+      <div class="board" id="detective-board">
+        <svg class="board-strings" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="60" y1="40" x2="640" y2="430" />
+          <line x1="120" y1="470" x2="700" y2="25" />
+          <line x1="380" y1="15" x2="930" y2="390" />
+          <line x1="15" y1="260" x2="960" y2="110" />
+          <line x1="510" y1="8" x2="170" y2="485" />
+        </svg>
 
-    <div class="callsheet-wrap">
-      <table class="callsheet">
-        <thead>
-          <tr>
-            <th>Position</th>
-            <th>Status</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Replace project names / notes with your real credits -->
-          <tr>
-            <td class="role">1st AC</td>
-            <td class="status-held">Held — professional</td>
-            <td><a href="films.html" style="text-decoration:underline;">Hector</a> — dir. Emerson S Zapata, shot on ARRI Alexa Mini.</td>
-          </tr>
-          <tr>
-            <td class="role">Cinematographer</td>
-            <td class="status-held">Held</td>
-            <td><a href="films.html" style="text-decoration:underline;">Thehre Ajnabi: Watershed</a> — dir. Hassan Ahmed Raja, Harf Factory.</td>
-          </tr>
-          <tr>
-            <td class="role">DOP / Camera / Editor</td>
-            <td class="status-held">Held</td>
-            <td><a href="films.html" style="text-decoration:underline;">Guppies</a> — dir. Emerson S Zapata.</td>
-          </tr>
-          <tr>
-            <td class="role">Assistant Director</td>
-            <td class="status-held">Held — semi-professional</td>
-            <td>Add the project name/details here.</td>
-          </tr>
-          <tr>
-            <td class="role">2nd / 3rd AD</td>
-            <td class="status-seeking"></td>
-            <td>Available now.</td>
-          </tr>
-          <tr>
-            <td class="role">3rd AC</td>
-            <td class="status-seeking"></td>
-            <td>Available now.</td>
-          </tr>
-          <tr>
-            <td class="role">Runner</td>
-            <td class="status-seeking"></td>
-            <td>Available now.</td>
-          </tr>
-          <tr>
-            <td class="role">Production Assistant</td>
-            <td class="status-seeking"></td>
-            <td>Available now.</td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="board-col">
+          <div class="board-col-label">Roles Held</div>
+
+          <figure class="card card-photo" style="--rot:-3deg;">
+            <span class="pin pin-red"></span>
+            <img src="assets/images/bts/bts-05.jpg" alt="Cast and crew on set, The Last Entry">
+            <figcaption>On set — The Last Entry</figcaption>
+          </figure>
+
+          <div class="card card-note" style="--rot:2deg;">
+            <span class="pin pin-silver"></span>
+            <div class="card-tag"><a href="films.html#hector">Hector</a> — dir. Emerson S Zapata</div>
+            <div class="card-role">1st AC</div>
+            <p class="card-note-body">Held — professional. Shot on ARRI Alexa Mini.</p>
+          </div>
+
+          <div class="card card-note" style="--rot:-1.5deg;">
+            <span class="pin pin-red"></span>
+            <div class="card-tag"><a href="films.html#thehre-ajnabi">Thehre Ajnabi: Watershed</a> — dir. Hassan Ahmed Raja, Harf Factory</div>
+            <div class="card-role">Cinematographer</div>
+            <p class="card-note-body">Held.</p>
+          </div>
+
+          <div class="card card-note" style="--rot:1.2deg;">
+            <span class="pin pin-silver"></span>
+            <div class="card-tag"><a href="films.html#guppies">Guppies</a> — dir. Emerson S Zapata</div>
+            <div class="card-role">DP</div>
+            <p class="card-note-body">Held.</p>
+          </div>
+          <div class="card card-note" style="--rot:-2.2deg;">
+            <span class="pin pin-red"></span>
+            <div class="card-tag"><a href="films.html#guppies">Guppies</a></div>
+            <div class="card-role">Camera Operator</div>
+            <p class="card-note-body">Held.</p>
+          </div>
+          <div class="card card-note" style="--rot:1.8deg;">
+            <span class="pin pin-silver"></span>
+            <div class="card-tag"><a href="films.html#guppies">Guppies</a></div>
+            <div class="card-role">Editor</div>
+            <p class="card-note-body">Held.</p>
+          </div>
+
+          <div class="card card-note" style="--rot:-1deg;">
+            <span class="pin pin-red"></span>
+            <div class="card-tag">Semi-professional — add project name here</div>
+            <div class="card-role">Assistant Director</div>
+            <p class="card-note-body">Held.</p>
+          </div>
+        </div>
+
+        <div class="board-col">
+          <div class="board-col-label">Roles I'm Chasing Next</div>
+
+          <div class="card card-note seeking" style="--rot:2deg;">
+            <span class="pin pin-red"></span>
+            <div class="card-role">2nd / 3rd AD</div>
+            <p class="card-note-body">Available now.</p>
+          </div>
+          <div class="card card-note seeking" style="--rot:-2deg;">
+            <span class="pin pin-silver"></span>
+            <div class="card-role">3rd AC</div>
+            <p class="card-note-body">Available now.</p>
+          </div>
+          <div class="card card-note seeking" style="--rot:1.6deg;">
+            <span class="pin pin-red"></span>
+            <div class="card-role">Runner</div>
+            <p class="card-note-body">Available now.</p>
+          </div>
+          <div class="card card-note seeking" style="--rot:-1.3deg;">
+            <span class="pin pin-silver"></span>
+            <div class="card-role">Production Assistant</div>
+            <p class="card-note-body">Available now.</p>
+          </div>
+        </div>
+      </div>
     </div>
     <p class="lede" style="margin-top:24px;font-size:0.85rem;">
-      Full synopses, crew credits, and stills for each of these live on the
+      Full synopses, crew credits, and stills for these live on the
       <a href="films.html" style="text-decoration:underline;">Films</a> page.
     </p>
   </section>

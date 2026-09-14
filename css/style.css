@@ -923,38 +923,192 @@ code { font-family: var(--frame-mono); }
 .role-tag.primary { border-color: var(--fg-dim); color: var(--fg); }
 
 /* -------------------------------------------------------------------- */
-/* call sheet — experience page                                          */
+/* detective board — experience page "On Set"                            */
 /* -------------------------------------------------------------------- */
-.callsheet {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: var(--frame-mono);
-  font-size: 0.85rem;
-}
-.callsheet th {
-  text-align: left;
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--fg-faint);
-  border-bottom: 1px solid var(--line);
-  padding: 0 12px 10px 0;
-  font-weight: 400;
-}
-.callsheet td {
-  padding: 16px 12px 16px 0;
-  border-bottom: 1px solid var(--line);
-  vertical-align: top;
-  color: var(--fg-dim);
-}
-.callsheet td.role { color: var(--fg); font-weight: 700; }
-.callsheet td.status-held { color: var(--fg); }
-.callsheet td.status-seeking::before {
-  content: "SEEKING — ";
-  color: var(--accent);
+.board-frame {
+  background: linear-gradient(155deg, #6b4423, #3f2a15);
+  padding: 14px;
+  border-radius: 4px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), inset 0 0 0 2px rgba(255, 255, 255, 0.05);
 }
 
-.callsheet-wrap { overflow-x: auto; }
+.board {
+  position: relative;
+  border-radius: 2px;
+  padding: 44px clamp(16px, 4vw, 56px) 56px;
+  background-color: #ab6f31;
+  background-image:
+    radial-gradient(rgba(0, 0, 0, 0.16) 1px, transparent 1.6px),
+    radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1.6px),
+    linear-gradient(160deg, #c98a48 0%, #a4642a 45%, #86531f 100%);
+  background-size: 6px 6px, 9px 9px, 100% 100%;
+  background-position: 0 0, 3px 4px, 0 0;
+  box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.4), inset 0 0 3px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(20px, 4vw, 60px);
+  overflow: hidden;
+}
+
+/* permanent light dim, always on — board stays readable without a cursor */
+.board::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: rgba(6, 4, 2, 0.28);
+  pointer-events: none;
+}
+/* flashlight cutout — brightens around the cursor, darkens the rest.
+   Position is set on --spot-x/--spot-y by js/main.js; pointer:fine only. */
+.board::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: radial-gradient(
+    circle 200px at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 32%,
+    rgba(4, 2, 1, 0.72) 78%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.board.lit::after { opacity: 1; }
+
+.board-strings {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.85;
+}
+.board-strings line {
+  stroke: #a4241c;
+  stroke-width: 2.4;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
+}
+
+.board-col {
+  flex: 1 1 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  position: relative;
+  z-index: 2;
+}
+.board-col-label {
+  font-family: var(--frame-serif);
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  color: #fff8ec;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  padding: 5px 14px;
+  align-self: flex-start;
+  background: rgba(20, 14, 8, 0.38);
+  border: 1px dashed rgba(255, 255, 255, 0.35);
+  transform: rotate(-1.4deg);
+}
+
+.card {
+  position: relative;
+  transform: rotate(var(--rot, 0deg));
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 3px 6px 14px rgba(0, 0, 0, 0.45);
+  width: min(100%, 260px);
+}
+.card:hover {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 4px 12px 24px rgba(0, 0, 0, 0.55);
+  z-index: 5;
+}
+
+.pin {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5), inset 0 -2px 2px rgba(0, 0, 0, 0.25),
+    inset 0 2px 2px rgba(255, 255, 255, 0.5);
+  z-index: 3;
+}
+.pin-red { background: radial-gradient(circle at 35% 30%, #ff8a72, #c1301c 70%); }
+.pin-silver { background: radial-gradient(circle at 35% 30%, #f2f2f2, #9a9a9a 70%); }
+
+.card-photo {
+  background: #f5f1e6;
+  padding: 10px 10px 32px;
+  margin: 0;
+}
+.card-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  filter: sepia(0.15) contrast(1.05);
+}
+.card-photo figcaption {
+  font-family: var(--frame-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  color: #4a3f2f;
+  text-align: center;
+  padding-top: 8px;
+}
+
+.card-note {
+  background-color: #f2ead4;
+  background-image: repeating-linear-gradient(#f2ead4 0 27px, rgba(0, 0, 0, 0.05) 27px 28px);
+  padding: 16px 16px 14px;
+  color: #2c2416;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.card-tag {
+  font-family: var(--frame-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #8a5624;
+  margin-bottom: 6px;
+}
+.card-tag a { color: inherit; text-decoration: underline; }
+.card-role {
+  font-family: var(--frame-serif);
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+}
+.card-note-body {
+  font-family: var(--frame-mono);
+  font-size: 0.7rem;
+  color: #4a3f2f;
+  margin-top: 6px;
+}
+.card-note.seeking { background-color: #efe6cb; }
+.card-note.seeking .card-role::after {
+  content: "SEEKING";
+  display: inline-block;
+  margin-left: 10px;
+  font-family: var(--frame-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 2px 5px;
+  vertical-align: middle;
+  transform: rotate(-4deg);
+}
+
+@media (max-width: 640px) {
+  .board { padding: 36px 16px 44px; gap: 30px; }
+  .card { width: 100%; }
+}
 
 /* -------------------------------------------------------------------- */
 /* job history — "Production & Editing" on the experience page           */

@@ -131,6 +131,21 @@ document.addEventListener("DOMContentLoaded", () => {
   // trackpad swipe, or shift+wheel — no JS scroll-hijacking here, so a
   // plain mouse wheel over a rail still scrolls the page like normal.
 
+  // Detective board (experience page): cursor becomes a flashlight —
+  // a circular spotlight follows the pointer, the rest of the board
+  // stays slightly dimmed (but always readable, see .board::before).
+  const board = document.getElementById("detective-board");
+  if (board && window.matchMedia("(pointer: fine)").matches) {
+    const moveSpot = (e) => {
+      const r = board.getBoundingClientRect();
+      board.style.setProperty("--spot-x", e.clientX - r.left + "px");
+      board.style.setProperty("--spot-y", e.clientY - r.top + "px");
+    };
+    board.addEventListener("mouseenter", (e) => { moveSpot(e); board.classList.add("lit"); });
+    board.addEventListener("mousemove", moveSpot);
+    board.addEventListener("mouseleave", () => board.classList.remove("lit"));
+  }
+
   // Vectorscope (films page): hover a dot for a tooltip, click to jump
   // to that film's section.
   const scope = document.getElementById("vectorscope");
