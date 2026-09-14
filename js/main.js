@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     requestAnimationFrame(tick);
 
-    const hoverables = "a, button, .scope-dot, .still-rail img, .reel-card, input, textarea";
+    const hoverables = "a, button, .scope-dot, .still-rail img, .reel-card, .tool-badge, input, textarea";
     document.querySelectorAll(hoverables).forEach((el) => {
       el.addEventListener("mouseenter", () => ring.classList.add("hover"));
       el.addEventListener("mouseleave", () => ring.classList.remove("hover"));

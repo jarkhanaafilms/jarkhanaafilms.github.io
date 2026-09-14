@@ -1034,6 +1034,69 @@ code { font-family: var(--frame-mono); }
 .role-tag.primary { border-color: var(--fg-dim); color: var(--fg); }
 
 /* -------------------------------------------------------------------- */
+/* tool badges — Premiere / After Effects / Photoshop, Skills & Tools    */
+/* Dim and desaturated at rest, like an exposed-but-undeveloped frame;   */
+/* hovering or focusing one "develops" it into its real brand color.     */
+/* -------------------------------------------------------------------- */
+.tool-badges {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+  margin: 4px 0 34px;
+}
+.tool-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 78px;
+  text-align: center;
+  cursor: default;
+  outline: none;
+}
+.tool-badge svg {
+  width: 56px;
+  height: 56px;
+  filter: grayscale(0.7) brightness(0.8);
+  transition: filter 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: tool-badge-glow 4.2s ease-in-out infinite;
+}
+.tool-badge:nth-child(2) svg { animation-delay: -1.4s; }
+.tool-badge:nth-child(3) svg { animation-delay: -2.8s; }
+.tool-badge rect { fill: var(--tool-bg); stroke: var(--tool-color); stroke-width: 1; }
+.tool-badge text {
+  fill: var(--tool-color);
+  font-family: var(--frame-serif);
+  font-size: 13px;
+  text-anchor: middle;
+}
+.tool-badge:hover svg,
+.tool-badge:focus-visible svg {
+  filter: grayscale(0) brightness(1.05);
+  transform: scale(1.14) rotate(-5deg);
+  animation-play-state: paused;
+}
+.tool-badge:focus-visible { box-shadow: 0 0 0 2px var(--accent); border-radius: 8px; }
+.tool-badge .tool-name {
+  font-family: var(--frame-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+  transition: color 0.3s ease;
+}
+.tool-badge:hover .tool-name,
+.tool-badge:focus-visible .tool-name { color: var(--fg); }
+
+@keyframes tool-badge-glow {
+  0%, 100% { filter: grayscale(0.7) brightness(0.8) drop-shadow(0 0 0 transparent); }
+  50% { filter: grayscale(0.45) brightness(0.95) drop-shadow(0 0 7px var(--tool-color)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tool-badge svg { animation: none; filter: grayscale(0.55) brightness(0.9); }
+}
+
+/* -------------------------------------------------------------------- */
 /* detective board — experience page "On Set"                            */
 /* -------------------------------------------------------------------- */
 .board-frame {
