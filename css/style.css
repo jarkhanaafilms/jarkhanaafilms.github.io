@@ -478,6 +478,21 @@ code { font-family: var(--frame-mono); }
 
 .cta-row { display: flex; gap: 16px; flex-wrap: wrap; }
 
+.hire-split {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.hire-split-label {
+  font-family: var(--frame-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -1349,6 +1364,31 @@ code { font-family: var(--frame-mono); }
   margin-bottom: 6px;
 }
 .callout .headline { font-family: var(--frame-serif); font-size: 1.5rem; }
+
+/* -------------------------------------------------------------------- */
+/* quick jump — orients a hirer to the pitch they came for                */
+/* -------------------------------------------------------------------- */
+.quick-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+.quick-jump a {
+  font-family: var(--frame-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  color: var(--fg-dim);
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+.quick-jump a:hover {
+  color: var(--fg);
+  border-color: var(--accent);
+  background: var(--bg-alt);
+}
 
 /* -------------------------------------------------------------------- */
 /* channel roster — work page                                            */
