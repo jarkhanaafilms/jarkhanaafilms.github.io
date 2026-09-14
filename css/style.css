@@ -823,66 +823,125 @@ code { font-family: var(--frame-mono); }
 .still-rail a { display: contents; }
 
 /* -------------------------------------------------------------------- */
-/* frame strip — homepage "A Few Frames" contact-sheet showcase          */
-/* Every still keeps the same true widescreen ratio (no forced crops    */
-/* into square/portrait cells) and sits loosely scattered, like frames  */
-/* pulled and laid out on a lightbox, bracketed by sprocket holes.      */
+/* frame viewer — homepage "A Few Frames" interactive still viewer       */
+/* One still plays large in a reel-style screen (same vertical sprocket */
+/* rails as the video reel up top); the row below is a contact strip    */
+/* you pull the next frame from. Auto-advances, click to lock one in.   */
 /* -------------------------------------------------------------------- */
-.frame-strip {
+.frame-viewer { margin: 22px 0 10px; }
+
+.viewer-screen-wrap {
+  position: relative;
+  background: var(--bg-alt);
+  padding: 0 20px;
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 46px 24px;
-  margin: 10px 0 34px;
-  padding: 30px 0 10px;
+  justify-content: center;
 }
-.frame-cell {
+.viewer-screen-wrap::before,
+.viewer-screen-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 18px;
+  background-image: radial-gradient(circle, var(--bg) 4px, var(--fg-faint) 4.5px, var(--fg-faint) 4.5px, transparent 5px);
+  background-size: 100% 34px;
+  background-repeat: repeat-y;
+  background-position: center;
+  opacity: 0.9;
+}
+.viewer-screen-wrap::before { left: 0; }
+.viewer-screen-wrap::after { right: 0; }
+
+.viewer-screen {
   position: relative;
   display: block;
-  overflow: hidden;
-  flex: 1 1 320px;
-  max-width: 420px;
+  width: 100%;
+  max-width: 900px;
   aspect-ratio: 1.85;
-  border: 1px solid var(--line);
-  transform: rotate(var(--tilt, 0deg)) translateY(var(--lift, 0px));
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+  background: #000;
+  overflow: hidden;
+  margin: 20px 0;
 }
-.frame-cell:hover {
-  transform: rotate(0deg) translateY(calc(var(--lift, 0px) - 6px)) scale(1.04);
-  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.5);
-  z-index: 3;
-}
-.frame-cell img {
+.viewer-screen img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(0.3) contrast(1.05);
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+  filter: grayscale(0.25) contrast(1.05);
+  transition: opacity 0.4s ease, filter 0.4s ease;
 }
-.frame-cell:hover img { transform: scale(1.07); filter: grayscale(0); }
-.frame-cell .cap {
+.viewer-screen:hover img { filter: grayscale(0); }
+.viewer-screen.switching img { opacity: 0; }
+
+.viewer-cap {
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  padding: 12px 14px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.88), transparent);
+  padding: 10px 22px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+}
+.viewer-title {
+  font-family: var(--frame-serif);
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  letter-spacing: 0.03em;
+  color: var(--fg);
+}
+.viewer-cta {
   font-family: var(--frame-mono);
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--fg);
-  transform: translateY(100%);
-  transition: transform 0.4s ease;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+  padding-bottom: 3px;
 }
-.frame-cell:hover .cap { transform: translateY(0); }
+.viewer-screen:hover .viewer-cta { opacity: 1; transform: translateX(0); }
+
+.viewer-thumbs {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  padding: 14px 4px 4px;
+  justify-content: center;
+}
+.viewer-thumb {
+  flex: 0 0 auto;
+  width: 100px;
+  aspect-ratio: 3 / 2;
+  border: 1px solid var(--line);
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.viewer-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.65) brightness(0.6);
+  transition: filter 0.3s ease;
+}
+.viewer-thumb:hover img { filter: grayscale(0.2) brightness(0.85); }
+.viewer-thumb.active { border-color: var(--accent); }
+.viewer-thumb.active img { filter: grayscale(0) brightness(1); }
+.viewer-thumb.active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--accent);
+  pointer-events: none;
+}
 
 @media (max-width: 640px) {
-  .frame-strip { gap: 34px 0; padding-top: 20px; }
-  .frame-cell { flex: 1 1 100%; max-width: 100%; transform: rotate(0deg) translateY(0); }
-  .frame-cell:hover { transform: scale(1.01); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .frame-cell { transform: none; }
+  .viewer-screen-wrap { padding: 0 12px; }
+  .viewer-title { font-size: 1.2rem; }
+  .viewer-cta { display: none; }
 }
 
 /* crew list — production stills credit block */

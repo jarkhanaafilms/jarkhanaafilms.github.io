@@ -20,19 +20,22 @@ document.addEventListener("DOMContentLoaded", () => {
   // between pages feels like a cut rather than a hard reload.
   if (!reduceMotionMQ.matches) {
     document.querySelectorAll("a[href]").forEach((a) => {
-      const href = a.getAttribute("href");
+      const initialHref = a.getAttribute("href");
       if (
-        !href ||
-        href.startsWith("#") ||
-        href.startsWith("mailto:") ||
-        href.startsWith("tel:") ||
+        !initialHref ||
+        initialHref.startsWith("#") ||
+        initialHref.startsWith("mailto:") ||
+        initialHref.startsWith("tel:") ||
         a.target === "_blank" ||
-        /^https?:\/\//i.test(href)
+        /^https?:\/\//i.test(initialHref)
       ) {
         return;
       }
       a.addEventListener("click", (e) => {
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        // read live, not the value captured above — some links (the
+        // homepage frame viewer) change their target after the page loads
+        const href = a.getAttribute("href");
         e.preventDefault();
         document.body.classList.add("page-leave");
         window.setTimeout(() => { window.location.href = href; }, 220);
@@ -81,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // scroll reveal — sections ease into place as they enter the viewport
   if (!reduceMotionMQ.matches && "IntersectionObserver" in window) {
     const revealables = document.querySelectorAll(
-      "main .section, .gallery-shot, .gallery-row, .job, .callout, .frame-strip"
+      "main .section, .gallery-shot, .gallery-row, .job, .callout, .frame-viewer"
     );
     revealables.forEach((el) => el.classList.add("reveal"));
     const io = new IntersectionObserver(
@@ -130,6 +133,50 @@ document.addEventListener("DOMContentLoaded", () => {
   // Still-rails scroll horizontally via their own visible scrollbar,
   // trackpad swipe, or shift+wheel — no JS scroll-hijacking here, so a
   // plain mouse wheel over a rail still scrolls the page like normal.
+
+  // Frame viewer (home page): one still plays large in the "screen",
+  // the row beneath acts like a contact strip. Click a thumb to swap
+  // the screen; the screen itself always links through to that film.
+  // Auto-advances gently on its own, pauses on hover/focus, and skips
+  // the autoplay (but keeps the click-to-browse) if motion is reduced.
+  const viewer = document.getElementById("frame-viewer");
+  if (viewer) {
+    const screen = viewer.querySelector(".viewer-screen");
+    const screenImg = screen.querySelector("img");
+    const title = viewer.querySelector(".viewer-title");
+    const thumbs = Array.from(viewer.querySelectorAll(".viewer-thumb"));
+    let current = 0;
+
+    const select = (index) => {
+      current = index;
+      const thumb = thumbs[index];
+      thumbs.forEach((t, i) => t.classList.toggle("active", i === index));
+      screen.classList.add("switching");
+      window.setTimeout(() => {
+        screenImg.src = thumb.dataset.img;
+        screenImg.alt = thumb.dataset.title + " — still";
+        title.textContent = thumb.dataset.title;
+        screen.setAttribute("href", "films.html#" + thumb.dataset.film);
+        screen.classList.remove("switching");
+      }, 220);
+    };
+
+    thumbs.forEach((thumb, index) => {
+      thumb.addEventListener("click", () => select(index));
+    });
+
+    if (!reduceMotionMQ.matches) {
+      let auto = window.setInterval(() => select((current + 1) % thumbs.length), 5000);
+      const restart = () => {
+        window.clearInterval(auto);
+        auto = window.setInterval(() => select((current + 1) % thumbs.length), 5000);
+      };
+      viewer.addEventListener("mouseenter", () => window.clearInterval(auto));
+      viewer.addEventListener("mouseleave", restart);
+      viewer.addEventListener("focusin", () => window.clearInterval(auto));
+      viewer.addEventListener("focusout", restart);
+    }
+  }
 
   // Detective board (experience page): cursor becomes a flashlight —
   // a circular spotlight follows the pointer, the rest of the board

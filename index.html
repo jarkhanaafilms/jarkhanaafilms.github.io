@@ -101,35 +101,45 @@
     <p class="timecode">A Few Frames</p>
     <p class="lede" style="margin-bottom:0;">
       Frames from five films — some I directed, some I shot or cut for
-      someone else. Click through to <a href="films.html" style="text-decoration:underline;">the full story on each</a>.
+      someone else. Pick one off the strip below, or let it play — click
+      the screen for <a href="films.html" style="text-decoration:underline;">the full story on each</a>.
     </p>
   </div>
-  <div class="sprockets"></div>
-  <div class="container">
-    <div class="frame-strip">
-      <a href="films.html#the-last-entry" class="frame-cell" style="--tilt:-1.2deg; --lift:6px;">
-        <img src="assets/images/last-entry-13.jpg" alt="The Last Entry — still" loading="lazy">
-        <span class="cap">The Last Entry</span>
-      </a>
-      <a href="films.html#hector" class="frame-cell" style="--tilt:1deg; --lift:-14px;">
-        <img src="assets/images/hector-06.jpg" alt="Hector — still" loading="lazy">
-        <span class="cap">Hector</span>
-      </a>
-      <a href="films.html#guppies" class="frame-cell" style="--tilt:-0.8deg; --lift:10px;">
-        <img src="assets/images/films/guppies/guppies-01.jpg" alt="Guppies — still" loading="lazy">
-        <span class="cap">Guppies</span>
-      </a>
-      <a href="films.html#thehre-ajnabi" class="frame-cell" style="--tilt:1.4deg; --lift:-4px;">
-        <img src="assets/images/films/thehre-ajnabi/thehre-ajnabi-01.jpg" alt="Thehre Ajnabi: Watershed — still" loading="lazy">
-        <span class="cap">Thehre Ajnabi: Watershed</span>
-      </a>
-      <a href="films.html#tohfa" class="frame-cell" style="--tilt:-1.6deg; --lift:16px;">
-        <img src="assets/images/films/tohfa/tohfa-01.jpg" alt="Tohfa: The Present — still" loading="lazy">
-        <span class="cap">Tohfa: The Present</span>
+
+  <!--
+    FRAME VIEWER — one still plays large in the "screen", the row below
+    is a contact strip. Clicking a thumb swaps the screen (see the
+    frame-viewer block in js/main.js); clicking the screen itself
+    follows through to that film's section. Auto-advances on its own.
+  -->
+  <div class="frame-viewer" id="frame-viewer">
+    <div class="viewer-screen-wrap">
+      <a href="films.html#the-last-entry" class="viewer-screen">
+        <img src="assets/images/last-entry-13.jpg" alt="The Last Entry — still">
+        <span class="viewer-cap">
+          <span class="viewer-title">The Last Entry</span>
+          <span class="viewer-cta">View the film &rarr;</span>
+        </span>
       </a>
     </div>
+    <div class="viewer-thumbs">
+      <button type="button" class="viewer-thumb active" data-film="the-last-entry" data-img="assets/images/last-entry-13.jpg" data-title="The Last Entry">
+        <img src="assets/images/last-entry-13.jpg" alt="The Last Entry">
+      </button>
+      <button type="button" class="viewer-thumb" data-film="hector" data-img="assets/images/hector-06.jpg" data-title="Hector">
+        <img src="assets/images/hector-06.jpg" alt="Hector">
+      </button>
+      <button type="button" class="viewer-thumb" data-film="guppies" data-img="assets/images/films/guppies/guppies-01.jpg" data-title="Guppies">
+        <img src="assets/images/films/guppies/guppies-01.jpg" alt="Guppies">
+      </button>
+      <button type="button" class="viewer-thumb" data-film="thehre-ajnabi" data-img="assets/images/films/thehre-ajnabi/thehre-ajnabi-01.jpg" data-title="Thehre Ajnabi: Watershed">
+        <img src="assets/images/films/thehre-ajnabi/thehre-ajnabi-01.jpg" alt="Thehre Ajnabi: Watershed">
+      </button>
+      <button type="button" class="viewer-thumb" data-film="tohfa" data-img="assets/images/films/tohfa/tohfa-01.jpg" data-title="Tohfa: The Present">
+        <img src="assets/images/films/tohfa/tohfa-01.jpg" alt="Tohfa: The Present">
+      </button>
+    </div>
   </div>
-  <div class="sprockets"></div>
 
   <section class="section">
     <p class="timecode">Where to look next</p>
