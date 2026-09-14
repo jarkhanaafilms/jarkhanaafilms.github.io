@@ -747,11 +747,6 @@ code { font-family: var(--frame-mono); }
   outline: none;
 }
 
-.scope-caption {
-  max-width: 320px;
-}
-.scope-caption .lede { margin-bottom: 0; }
-
 .scope-tooltip {
   position: fixed;
   z-index: 200;
@@ -816,16 +811,65 @@ code { font-family: var(--frame-mono); }
 
 .still-rail img {
   flex: 0 0 auto;
-  width: min(58vw, 260px);
+  width: min(75vw, 420px);
   aspect-ratio: 3 / 2;
   object-fit: cover;
   border: 1px solid var(--line);
   filter: grayscale(0.15);
-  transition: transform 0.3s ease, filter 0.3s ease;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
 }
-.still-rail img:hover { transform: scale(1.03); filter: grayscale(0); }
-.still-rail.wide img { width: min(70vw, 380px); aspect-ratio: 2.35 / 1; }
+.still-rail img:hover { transform: scale(1.08); filter: grayscale(0); }
+.still-rail.wide img { width: min(85vw, 520px); aspect-ratio: 2.35 / 1; }
 .still-rail a { display: contents; }
+
+/* -------------------------------------------------------------------- */
+/* frame grid — homepage "A Few Frames" bento showcase                  */
+/* -------------------------------------------------------------------- */
+.frame-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  grid-template-rows: repeat(2, 240px);
+  gap: 10px;
+  margin-top: 24px;
+}
+.frame-grid a {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.frame-grid a.hero { grid-row: 1 / span 2; }
+.frame-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.3) contrast(1.05);
+  transform: scale(1);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+}
+.frame-grid a:hover img { transform: scale(1.08); filter: grayscale(0); }
+.frame-grid .cap {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 14px;
+  background: linear-gradient(to top, rgba(0,0,0,0.88), transparent);
+  font-family: var(--frame-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg);
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+}
+.frame-grid a:hover .cap { transform: translateY(0); }
+
+@media (max-width: 760px) {
+  .frame-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 220px 150px 150px;
+  }
+  .frame-grid a.hero { grid-column: 1 / span 2; grid-row: 1; }
+}
 
 /* crew list — production stills credit block */
 .crew-list {

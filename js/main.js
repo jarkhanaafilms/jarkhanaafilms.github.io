@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // scroll reveal — sections ease into place as they enter the viewport
   if (!reduceMotionMQ.matches && "IntersectionObserver" in window) {
     const revealables = document.querySelectorAll(
-      "main .section, .gallery-shot, .gallery-row, .job, .callout"
+      "main .section, .gallery-shot, .gallery-row, .job, .callout, .frame-grid"
     );
     revealables.forEach((el) => el.classList.add("reveal"));
     const io = new IntersectionObserver(
