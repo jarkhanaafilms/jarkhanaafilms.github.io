@@ -636,14 +636,41 @@ code { font-family: var(--frame-mono); }
   height: 100%;
   border: 0;
 }
-/* Instagram's script replaces the blockquote with an iframe that also
-   expects an absolutely-positioned fill of a definite-size relative
-   parent — the same box model the YouTube iframes use above, so no
-   special-casing needed here. */
-.reel-card.ig .reel-card-media blockquote {
-  width: 100% !important;
-  margin: 0 !important;
+/* Instagram's own oEmbed script is too unreliable to depend on (slow
+   or blocked outright by mobile tracking-protection, leaving a big
+   dead gap where the reel should be) — these cards link straight out
+   to the real post instead, styled to match the site rather than
+   Instagram's own white-card branding. */
+.reel-card .reel-card-media.ig-card {
+  aspect-ratio: 4 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  background: linear-gradient(155deg, var(--bg-alt), #000);
+  transition: border-color 0.25s ease, background 0.25s ease;
 }
+.ig-card .ig-mark {
+  font-family: var(--frame-serif);
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+}
+.ig-card .ig-view {
+  font-family: var(--frame-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.ig-card:hover { border-color: var(--fg-faint); }
+.ig-card:hover .ig-mark { color: var(--fg); }
+.ig-card:hover .ig-view { opacity: 1; transform: translateY(0); }
 
 .reel-card .cap {
   margin-top: 10px;
@@ -1376,4 +1403,23 @@ code { font-family: var(--frame-mono); }
   .still-rail-wrap { margin: 0 -20px; }
   .still-rail { padding: 10px 20px 20px; }
   .channel-row { grid-template-columns: 1fr; align-items: flex-start; gap: 8px; }
+}
+
+/* Phone widths: even the shrunk nav from the breakpoint above doesn't
+   fit five items + the logo on one line without horizontal scroll —
+   wrap onto two centered rows instead. */
+@media (max-width: 520px) {
+  .nav-frames {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px 14px;
+    row-gap: 2px;
+  }
+  .nav-logo { padding: 4px 0; }
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .nav-links li:first-child { border-left: none; }
 }
