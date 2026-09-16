@@ -740,6 +740,16 @@ code { font-family: var(--frame-mono); }
   text-transform: uppercase;
   color: var(--accent);
 }
+/* .stats — public view/like/share counts on a card's standout posts.
+   A manually-reported snapshot (Jarrar checked the post), not live —
+   same reasoning as the follower counts above each section. */
+.reel-card .cap .stats {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.64rem;
+  letter-spacing: 0.03em;
+  color: var(--fg-dim);
+}
 
 /* -------------------------------------------------------------------- */
 /* generic section                                                       */
