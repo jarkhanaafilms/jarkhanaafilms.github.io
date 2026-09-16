@@ -695,6 +695,14 @@ code { font-family: var(--frame-mono); }
   line-height: 1.5;
 }
 .reel-card .cap b { display: block; color: var(--fg); font-weight: 700; }
+.reel-card .cap .role {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
 
 /* -------------------------------------------------------------------- */
 /* generic section                                                       */
