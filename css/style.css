@@ -1483,6 +1483,25 @@ code { font-family: var(--frame-mono); }
   text-transform: uppercase;
 }
 
+/* social-stat — a handle + follower count, next to a client's name.
+   A manually-set snapshot, not a live count (see the section header
+   this sits under for how current it is) — Instagram has no public
+   API for someone else's follower count, and exposing an access
+   token for your own account in client-side JS isn't safe to do. */
+.social-stat {
+  margin: -6px 0 14px;
+  font-family: var(--frame-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--fg-dim);
+}
+.social-stat a {
+  font-family: var(--frame-serif);
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  color: var(--fg);
+}
+
 /* -------------------------------------------------------------------- */
 /* contact page                                                          */
 /* -------------------------------------------------------------------- */
