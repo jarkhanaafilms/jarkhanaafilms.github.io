@@ -96,7 +96,11 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      // threshold 0 = reveal as soon as any part enters view. A fractional
+      // threshold (was 0.12) silently breaks on tall sections: on a phone,
+      // a multi-thousand-px section can never get 12% of itself on screen
+      // at once, so it stayed at opacity 0 forever.
+      { threshold: 0, rootMargin: "0px 0px -40px 0px" }
     );
     revealables.forEach((el) => io.observe(el));
   }
