@@ -632,6 +632,12 @@ code { font-family: var(--frame-mono); }
   gap: 22px;
   margin-top: 28px;
 }
+/* Long Form — 16:9 episodes need to be much wider than the vertical
+   reels' 200px columns: two per row on desktop, one per row on a phone. */
+.reel-grid.long-form {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
+  gap: 30px 22px;
+}
 
 .reel-card { display: flex; flex-direction: column; }
 
